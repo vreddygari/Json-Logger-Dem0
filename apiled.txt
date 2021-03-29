@@ -1,0 +1,54 @@
+
+the methodical way to transfer data between applications through reusble and purposeful api's
+
+
+system layer is  layer you build on top of a system and which handles all system specific connections and settings and system api it hides all the complextity of IT infrasturec frm the user..  which handles
+
+process layer -- Process api where you keep all business logic  and orchestartions and it does not talk to end sytem directly but it can connect to system api to get data
+
+exp layer -- experience  api that we expose to end user   and its responsibility to provide all the informations required by client in a format that they support.
+
+
+--develop individual system api's for each system then use the process the api to call system api 
+
+When i can go for sytem api:
+
+go for system api if and only if  there is a need that system api can be resued by multiple applications
+
+
+when i can go for process api : 
+
+when i would like to call multiple system api acrross the system and i would like prepare the single resp
+ by using those system resp there i can do  enrichments transformations in that case go for process api
+
+if you would like to call multiple system api then go for process api if you would like to  call  onesytem api
+ then no need to develop process api because directly we can consume system api
+
+
+exp api:
+
+what evr process api that need to be exposed to the two audineces (diff bank) fpx need to more filesds jompay need less fileds(if and if you have multiple auidence then go for exp apii if you have one audience one exp api two we two api)
+
+should be chosse if and only if multiple audeinece need multiple way of resp or any diffence needed  wrt to the url or response or enrichments or transformations
+
+
+
+develop individual system api's for each system (develop on eproject for sap,develop on eproject for sfdc,develop on eproject for wrkday) 
+then these api will be consumed from process api then those will be consumed by exp api
+
+then exp api will be exposed to the diff systems(mobile and web)
+
+Ass if diff system have same dataset  as a response  then no need to go for  exp api you can expose proces api to the both.
+
+if you would 
+
+ram babu yedhama reddy
+
+randheer verma jetti
+
+
+raj@delviom.com
+info@taurusbiz.com
+
+
+
