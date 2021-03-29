@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="97141c09-7cc4-40f3-9a21-16a5fae6a21e" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<json-logger:config name="JSON_Logger_Config" doc:name="JSON Logger Config" doc:id="7f03fb59-7f00-4e87-87f1-2b8443ba6de8" environment="${mule.env}">
+		<json-logger:external-destination >
+			<json-logger:jms-destination jmsConfigurationRef="JMS_Config" queueDestination="loqqueue"/>
+		</json-logger:external-destination>
+	</json-logger:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="8dcbe384-e180-4a7f-ae88-2ff28b16b5db" file="env.yaml" />
+	<jms:config name="JMS_Config" doc:name="JMS Config" doc:id="f997ee07-da3f-47fa-a3a0-1a49888f3e7c" >
+		<jms:active-mq-connection username="admin" password="admin">
+			<jms:factory-configuration brokerUrl="tcp://localhost:61616" />
+		</jms:active-mq-connection>
+	</jms:config>
+	<flow name="json-loggerFlow" doc:id="7f0788d8-1adf-48fb-9804-c97ff638b732" >
+		<http:listener doc:name="Listener" doc:id="7fe3d175-d9e2-4443-a989-34e7f1d661d3" config-ref="HTTP_Listener_config" path="/jsonlog" allowedMethods="POST"/>
+		<json-logger:logger doc:name="Logger" doc:id="3b8f4d1a-ae47-4258-9adc-a5a09701eded" config-ref="JSON_Logger_Config" message="Initial request payload"/>
+	</flow>
+</mule>
